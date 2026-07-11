@@ -1,0 +1,587 @@
+{
+	"info": {
+		"_postman_id": "8f895c1a-289c-497f-a63b-014c2d3cf38b",
+		"name": "Food Delivery Application API",
+		"description": "Production-grade REST APIs for Customers, Restaurant Owners, Admins, Cart Checkout, and Real-time Tracking.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"customer_test@fooddelivery.com\",\n    \"password\": \"password123\",\n    \"fullName\": \"Jane Smith\",\n    \"phone\": \"9876543210\",\n    \"address\": \"789 Maple Lane\",\n    \"city\": \"Metropolis\",\n    \"role\": \"CUSTOMER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if(jsonData && jsonData.token) {",
+									"    pm.environment.set(\"token\", jsonData.token);",
+									"    pm.environment.set(\"userId\", jsonData.userId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"customer@fooddelivery.com\",\n    \"password\": \"customer123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Get All Customers (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Profile By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"John Doe Updated\",\n    \"phone\": \"7777777777\",\n    \"address\": \"Apt 12C, North Towers\",\n    \"city\": \"Metropolis\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/update/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								"update",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Register Restaurant (Owner)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Gourmet Burger Bistro\",\n    \"location\": \"High Street Central\",\n    \"cuisine\": \"Burgers & Sides\",\n    \"imageUrl\": \"https://images.unsplash.com/photo-1568901346375-23c9450c58cd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Restaurants by Keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/search?keyword=Italian",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "Italian"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Foods",
+			"item": [
+				{
+					"name": "Add Food Item (Owner)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurantId\": 1,\n    \"name\": \"Mozzarella Sticks (6 Pcs)\",\n    \"category\": \"Sides\",\n    \"description\": \"Golden fried melted mozzarella sticks with marinara dip\",\n    \"price\": 6.99,\n    \"available\": true,\n    \"imageUrl\": \"https://images.unsplash.com/photo-1531749668029-2db88e4b76ce\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/foods/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"foods",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Menu Items by Restaurant ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/foods/restaurant/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"foods",
+								"restaurant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Add Item to Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"foodId\": 1,\n    \"quantity\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cart/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shopping Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart Item Quantity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cart/update/1?quantity=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"update",
+								"1"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Checkout Cart & Place Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deliveryAddress\": \"Apt 4B, Central Avenue, Metropolis\",\n    \"paymentMethod\": \"CARD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Orders History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status (Owner / Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deliveryStatus\": \"PREPARING\",\n    \"paymentStatus\": \"COMPLETED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders/update/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Dashboard Analytics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dashboard/analytics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dashboard",
+								"analytics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

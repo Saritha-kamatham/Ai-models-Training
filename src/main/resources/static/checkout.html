@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Checkout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div style="padding-top: 2rem;">
+        <h2 class="section-title">Order Checkout</h2>
+
+        <div class="cart-container" id="checkout-wrapper">
+            <!-- Left Side: Address & Payment Details -->
+            <div class="cart-items-section">
+                <!-- Delivery Details Card -->
+                <div class="glass-panel" style="padding: 2rem; margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-truck" style="color: var(--primary-color);"></i> Delivery Details</h3>
+                    <div class="form-group">
+                        <label for="checkout-address">Delivery Address</label>
+                        <div class="form-control-wrapper">
+                            <i class="fas fa-map-marker-alt" style="top: 1rem;"></i>
+                            <textarea id="checkout-address" class="form-control" rows="3" placeholder="Enter complete address..." style="resize: none; padding-left: 2.8rem;" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout-city">City</label>
+                        <div class="form-control-wrapper">
+                            <i class="fas fa-city"></i>
+                            <input type="text" id="checkout-city" class="form-control" placeholder="Metropolis" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method Card -->
+                <div class="glass-panel" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-credit-card" style="color: var(--primary-color);"></i> Select Payment Method</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <label class="glass-panel" style="padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; border-radius: var(--border-radius-sm);">
+                            <input type="radio" name="payment-method" value="CARD" checked style="accent-color: var(--primary-color);">
+                            <i class="fas fa-credit-card" style="font-size: 1.2rem; color: var(--info);"></i>
+                            <div>
+                                <strong style="display: block;">Credit or Debit Card</strong>
+                                <span style="font-size: 0.85rem; color: var(--text-secondary);">Pay securely with Visa, MasterCard, or Amex</span>
+                            </div>
+                        </label>
+
+                        <label class="glass-panel" style="padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; border-radius: var(--border-radius-sm);">
+                            <input type="radio" name="payment-method" value="UPI" style="accent-color: var(--primary-color);">
+                            <i class="fas fa-mobile-alt" style="font-size: 1.2rem; color: var(--success);"></i>
+                            <div>
+                                <strong style="display: block;">UPI Payment</strong>
+                                <span style="font-size: 0.85rem; color: var(--text-secondary);">Pay instantly using GPay, PhonePe, or Paytm</span>
+                            </div>
+                        </label>
+
+                        <label class="glass-panel" style="padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; border-radius: var(--border-radius-sm);">
+                            <input type="radio" name="payment-method" value="COD" style="accent-color: var(--primary-color);">
+                            <i class="fas fa-hand-holding-usd" style="font-size: 1.2rem; color: var(--warning);"></i>
+                            <div>
+                                <strong style="display: block;">Cash on Delivery (COD)</strong>
+                                <span style="font-size: 0.85rem; color: var(--text-secondary);">Pay with cash at your doorstep when food arrives</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Order Items Review -->
+            <div class="cart-summary glass-panel" id="checkout-summary-container">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FoodDash Delivery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div class="auth-wrapper">
+        <div class="auth-card glass-panel">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Login to your FoodDash account</p>
+            </div>
+
+            <form id="login-form" onsubmit="handleLoginSubmit(event)">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" class="form-control" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                        <i class="fas fa-eye-slash password-toggle" id="toggle-password" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+
+                <div class="form-footer">
+                    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-secondary);">
+                        <input type="checkbox" style="accent-color: var(--primary-color);"> Remember me
+                    </label>
+                    <a href="#" class="form-link" onclick="showAlert('Demo mode: Password recovery is simulated!', 'info')">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem;">Sign In</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-secondary);">
+                Don't have an account? <a href="register.html" class="form-link">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-bottom" style="border-top: 1px solid var(--glass-border); padding-top: 1.5rem; margin-top: auto;">
+            <p>&copy; 2026 FoodDash Delivery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

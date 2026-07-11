@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Merchant & Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div class="dashboard-grid">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-link active" onclick="switchTab('overview')" id="tab-link-overview">
+                <i class="fas fa-chart-line"></i> Overview
+            </div>
+            <div class="sidebar-link" onclick="switchTab('restaurants')" id="tab-link-restaurants">
+                <i class="fas fa-store"></i> Restaurants
+            </div>
+            <div class="sidebar-link" onclick="switchTab('foods')" id="tab-link-foods">
+                <i class="fas fa-hamburger"></i> Menu Items
+            </div>
+            <div class="sidebar-link" onclick="switchTab('orders')" id="tab-link-orders">
+                <i class="fas fa-receipt"></i> Orders
+            </div>
+            <div class="sidebar-link" onclick="switchTab('customers')" id="tab-link-customers" style="display: none;">
+                <i class="fas fa-users"></i> Customers
+            </div>
+        </aside>
+
+        <!-- Main Content Pane -->
+        <main class="dashboard-main">
+            <!-- Overview Pane -->
+            <section id="pane-overview" class="dashboard-pane">
+                <h2 style="margin-bottom: 2rem;">Dashboard Analytics Overview</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card glass-panel">
+                        <div class="analytics-icon"><i class="fas fa-users"></i></div>
+                        <div class="analytics-info">
+                            <h4>Total Customers</h4>
+                            <span id="stat-customers">0</span>
+                        </div>
+                    </div>
+                    <div class="analytics-card glass-panel">
+                        <div class="analytics-icon"><i class="fas fa-store"></i></div>
+                        <div class="analytics-info">
+                            <h4>Restaurants</h4>
+                            <span id="stat-restaurants">0</span>
+                        </div>
+                    </div>
+                    <div class="analytics-card glass-panel">
+                        <div class="analytics-icon"><i class="fas fa-hamburger"></i></div>
+                        <div class="analytics-info">
+                            <h4>Menu Items</h4>
+                            <span id="stat-foods">0</span>
+                        </div>
+                    </div>
+                    <div class="analytics-card glass-panel">
+                        <div class="analytics-icon"><i class="fas fa-receipt"></i></div>
+                        <div class="analytics-info">
+                            <h4>Orders Placed</h4>
+                            <span id="stat-orders">0</span>
+                        </div>
+                    </div>
+                    <div class="analytics-card glass-panel" style="grid-column: span 2; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02)); border-color: rgba(16, 185, 129, 0.2);">
+                        <div class="analytics-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--success);"><i class="fas fa-rupee-sign"></i></div>
+                        <div class="analytics-info">
+                            <h4>Total Revenue Earnings</h4>
+                            <span id="stat-revenue" style="color: var(--success);">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Restaurants Pane -->
+            <section id="pane-restaurants" class="dashboard-pane" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Manage Restaurants</h2>
+                    <button class="btn btn-primary" onclick="openRestaurantModal(null)">
+                        <i class="fas fa-plus"></i> Add Restaurant
+                    </button>
+                </div>
+                <div class="table-container glass-panel">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Cuisine</th>
+                                <th>Rating</th>
+                                <th>Owner Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="restaurants-table-body">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Food Items Pane -->
+            <section id="pane-foods" class="dashboard-pane" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Manage Menu Items</h2>
+                    <button class="btn btn-primary" onclick="openFoodModal(null)">
+                        <i class="fas fa-plus"></i> Add Menu Item
+                    </button>
+                </div>
+                <div class="table-container glass-panel">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Dish Name</th>
+                                <th>Restaurant</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Availability</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="foods-table-body">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Pane -->
+            <section id="pane-orders" class="dashboard-pane" style="display: none;">
+                <h2>Manage Incoming Orders</h2>
+                <div class="table-container glass-panel" style="margin-top: 1.5rem;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Restaurant</th>
+                                <th>Total Amount</th>
+                                <th>Date</th>
+                                <th>Payment</th>
+                                <th>Delivery Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Customers Pane -->
+            <section id="pane-customers" class="dashboard-pane" style="display: none;">
+                <h2>Manage Customers</h2>
+                <div class="table-container glass-panel" style="margin-top: 1.5rem;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customers-table-body">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ====================================================================
+         MODALS DIALOGS
+         ==================================================================== -->
+    
+    <!-- Restaurant Modal -->
+    <div class="modal-overlay" id="restaurant-modal">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3 id="restaurant-modal-title">Add Restaurant</h3>
+                <button class="modal-close" onclick="closeRestaurantModal()">&times;</button>
+            </div>
+            <form id="restaurant-form" onsubmit="saveRestaurantForm(event)">
+                <input type="hidden" id="restaurant-form-id">
+                
+                <div class="form-group">
+                    <label for="rest-name">Restaurant Name</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-store"></i>
+                        <input type="text" id="rest-name" class="form-control" placeholder="e.g. Pizza Palace" style="padding-left: 2.8rem;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rest-location">Location Address</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" id="rest-location" class="form-control" placeholder="e.g. Downtown Crossing" style="padding-left: 2.8rem;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rest-cuisine">Cuisine Specialties</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-utensils"></i>
+                        <input type="text" id="rest-cuisine" class="form-control" placeholder="e.g. Italian, Pizzas" style="padding-left: 2.8rem;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rest-image">Restaurant Cover Image URL</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-image"></i>
+                        <input type="url" id="rest-image" class="form-control" placeholder="https://unsplash.com/..." style="padding-left: 2.8rem;">
+                    </div>
+                </div>
+
+                <div class="form-group" id="rest-owner-selection" style="display: none;">
+                    <label for="rest-owner-id">Assign Owner ID</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-user-tie"></i>
+                        <input type="number" id="rest-owner-id" class="form-control" placeholder="Owner User ID" style="padding-left: 2.8rem;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Details</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Food Modal -->
+    <div class="modal-overlay" id="food-modal">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3 id="food-modal-title">Add Menu Item</h3>
+                <button class="modal-close" onclick="closeFoodModal()">&times;</button>
+            </div>
+            <form id="food-form" onsubmit="saveFoodForm(event)">
+                <input type="hidden" id="food-form-id">
+                
+                <div class="form-group">
+                    <label for="food-rest-id">Select Restaurant</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-store" style="left: 1rem; color: var(--text-muted);"></i>
+                        <select id="food-rest-id" class="form-control" style="padding-left: 2.8rem; background: var(--bg-primary);" required>
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-name">Dish Name</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-hamburger"></i>
+                        <input type="text" id="food-name" class="form-control" placeholder="e.g. Veggie Burger" style="padding-left: 2.8rem;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-category">Category</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-tags"></i>
+                        <input type="text" id="food-category" class="form-control" placeholder="e.g. Burgers, Sides, Pizzas" style="padding-left: 2.8rem;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-price">Price ($)</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-dollar-sign"></i>
+                        <input type="number" id="food-price" class="form-control" step="0.01" min="0" placeholder="9.99" style="padding-left: 2.8rem;" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-desc">Description</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-align-left" style="top: 1rem;"></i>
+                        <textarea id="food-desc" class="form-control" rows="2" placeholder="Describe the item details..." style="resize: none; padding-left: 2.8rem;"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-image">Dish Image URL</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-image"></i>
+                        <input type="url" id="food-image" class="form-control" placeholder="https://..." style="padding-left: 2.8rem;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-secondary);">
+                        <input type="checkbox" id="food-available" checked style="accent-color: var(--primary-color);"> Available in Menu
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Food Item</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Update Modal -->
+    <div class="modal-overlay" id="order-modal">
+        <div class="modal-card glass-panel" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Update Order Status</h3>
+                <button class="modal-close" onclick="closeOrderModal()">&times;</button>
+            </div>
+            <form id="order-form" onsubmit="saveOrderStatusForm(event)">
+                <input type="hidden" id="order-form-id">
+                
+                <div class="form-group">
+                    <label for="order-delivery-status">Delivery Status</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-truck" style="left: 1rem; color: var(--text-muted);"></i>
+                        <select id="order-delivery-status" class="form-control" style="padding-left: 2.8rem; background: var(--bg-primary);">
+                            <option value="PLACED">Placed</option>
+                            <option value="PREPARING">Preparing</option>
+                            <option value="OUT_FOR_DELIVERY">Out For Delivery</option>
+                            <option value="DELIVERED">Delivered</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-payment-status">Payment Status</label>
+                    <div class="form-control-wrapper">
+                        <i class="fas fa-dollar-sign" style="left: 1rem; color: var(--text-muted);"></i>
+                        <select id="order-payment-status" class="form-control" style="padding-left: 2.8rem; background: var(--bg-primary);">
+                            <option value="PENDING">Pending</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="FAILED">Failed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Update Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

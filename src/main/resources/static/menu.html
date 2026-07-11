@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Explore Dishes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div style="padding-top: 2rem;">
+        <h2 class="section-title">Explore Dishes</h2>
+        
+        <!-- Search & Filter Controls -->
+        <div class="filters-container">
+            <div class="search-container" style="max-width: 400px; margin: 0;">
+                <i class="fas fa-search"></i>
+                <input type="text" id="food-search-input" placeholder="Search dishes or categories..." oninput="handleFoodSearch(event)">
+            </div>
+            
+            <div class="filter-chips">
+                <button class="filter-chip active" id="fchip-all" onclick="filterFoodByCategory('ALL')">All Categories</button>
+                <button class="filter-chip" id="fchip-pizzas" onclick="filterFoodByCategory('Pizzas')">Pizzas</button>
+                <button class="filter-chip" id="fchip-burgers" onclick="filterFoodByCategory('Burgers')">Burgers</button>
+                <button class="filter-chip" id="fchip-sushi" onclick="filterFoodByCategory('Sushi')">Sushi</button>
+                <button class="filter-chip" id="fchip-sides" onclick="filterFoodByCategory('Sides')">Sides</button>
+            </div>
+        </div>
+
+        <div class="grid-container" id="foods-grid">
+            <!-- Dynamic loading -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FoodDash Delivery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Premium Food Delivery App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header / Navbar (Rendered dynamically by app.js) -->
+    <header></header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hungry? Grab the <span>Best Dishes</span> in Town!</h1>
+            <p>Order delicious food from top-rated restaurants and get it delivered directly to your doorstep. Hot, fresh, and lightning fast.</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="hero-search-input" placeholder="Search for your favorite restaurants, cuisines, or dishes...">
+                <button class="btn btn-primary" onclick="handleHeroSearch()" style="border-radius: 30px;">Search</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Delicious Food Basket">
+        </div>
+    </section>
+
+    <!-- Offers Banner Section -->
+    <section class="offers-section">
+        <h2 class="section-title">Special Offers For You</h2>
+        <div class="offers-grid">
+            <div class="offer-card glass-panel" style="background: linear-gradient(135deg, rgba(255, 75, 43, 0.1), rgba(255, 65, 108, 0.1));">
+                <span class="card-badge-top">50% OFF</span>
+                <h3 style="margin-top: 1rem;">First Order Special</h3>
+                <p>Use code <strong>WELCOME50</strong> to get 50% discount up to ₹100 on your first meal.</p>
+                <a href="restaurants.html" class="form-link">Browse Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="offer-card glass-panel" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));">
+                <span class="card-badge-top" style="background: #10b981;">FREE DELIVERY</span>
+                <h3 style="margin-top: 1rem;">Weekend Feast</h3>
+                <p>Order above ₹300 on weekends and enjoy zero delivery charges from selected outlets.</p>
+                <a href="restaurants.html" class="form-link">Browse Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Restaurants Section -->
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-right: 5%;">
+            <h2 class="section-title">Popular Restaurants</h2>
+            <a href="restaurants.html" class="form-link" style="font-weight: 600;">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="grid-container" id="popular-restaurants-container">
+            <!-- Dynamic Restaurant Cards Load Here -->
+        </div>
+    </section>
+
+    <!-- Featured Food Dishes -->
+    <section style="background: rgba(255,255,255,0.01); padding-top: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-right: 5%;">
+            <h2 class="section-title">Trending Dishes</h2>
+            <a href="menu.html" class="form-link" style="font-weight: 600;">Explore Menu <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="grid-container" id="trending-dishes-container">
+            <!-- Dynamic Food Cards Load Here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4 style="color: var(--primary-color);">FoodDash</h4>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Delivering happiness, one bite at a time. The absolute best restaurants in your city, straight to your dining table.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="restaurants.html">Restaurants</a></li>
+                    <li><a href="menu.html">Explore Menu</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Refund & Cancellations</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Email: support@fooddash.com</li>
+                    <li>Phone: +1 800 234 5678</li>
+                    <li>Location: Tech Hub, Metropolis</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FoodDash Delivery. All Rights Reserved. Built with Spring Boot 3.x & Java 21.</p>
+        </div>
+    </footer>
+
+    <!-- Location Map Modal -->
+    <div id="map-modal" class="modal">
+        <div class="modal-content glass-panel" style="max-width: 600px; padding: 2rem; width: 90%;">
+            <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-map-marked-alt" style="color: var(--primary-color);"></i> Set Delivery Location</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">Search your city/town or click on the map to set your pin.</p>
+            
+            <!-- Map Search Box with Suggestions -->
+            <div style="position: relative; margin-bottom: 1rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="map-search-input" placeholder="Search for cities, towns, or restaurants..." style="flex: 1; padding: 0.6rem 1rem; border-radius: var(--border-radius-sm); border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: var(--text-primary); outline: none;" oninput="handleMapSearchInput(this.value)" onkeypress="handleMapSearchKeyPress(event)">
+                    <button class="btn btn-primary" onclick="searchMapLocation()" style="padding: 0.6rem 1.2rem;"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div id="map-search-suggestions" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: var(--border-radius-sm); box-shadow: 0 8px 24px rgba(0,0,0,0.6); z-index: 9999; max-height: 250px; overflow-y: auto; margin-top: 0.25rem;"></div>
+            </div>
+
+            <div id="map-container" style="height: 300px; border-radius: var(--border-radius-sm); margin-bottom: 1.5rem; border: 1px solid var(--glass-border); position: relative; z-index: 1;"></div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeMapModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmMapLocation()">Confirm Location</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Script Files -->
+    <script src="js/app.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

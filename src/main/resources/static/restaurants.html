@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Browse Restaurants</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div style="padding-top: 2rem;">
+        <h2 class="section-title">All Restaurants</h2>
+        
+        <!-- Search & Filter Controls -->
+        <div class="filters-container">
+            <div class="search-container" style="max-width: 400px; margin: 0;">
+                <i class="fas fa-search"></i>
+                <input type="text" id="restaurant-search-input" placeholder="Search by name, cuisine, or location..." oninput="handleSearchInput(event)">
+            </div>
+            
+            <div class="filter-chips">
+                <button class="filter-chip active" id="chip-all" onclick="filterByCuisine('ALL')">All Cuisines</button>
+                <button class="filter-chip" id="chip-italian" onclick="filterByCuisine('Italian')">Italian</button>
+                <button class="filter-chip" id="chip-burgers" onclick="filterByCuisine('Burgers')">Burgers</button>
+                <button class="filter-chip" id="chip-japanese" onclick="filterByCuisine('Japanese')">Japanese</button>
+                <button class="filter-chip" id="chip-mexican" onclick="filterByCuisine('Mexican')">Mexican</button>
+                <button class="filter-chip" onclick="sortByRating()">Top Rated <i class="fas fa-star" style="color: #f59e0b;"></i></button>
+            </div>
+        </div>
+
+        <div class="grid-container" id="restaurants-grid">
+            <!-- Dynamic loading -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FoodDash Delivery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Location Map Modal -->
+    <div id="map-modal" class="modal">
+        <div class="modal-content glass-panel" style="max-width: 600px; padding: 2rem; width: 90%;">
+            <h3 style="margin-bottom: 0.5rem;"><i class="fas fa-map-marked-alt" style="color: var(--primary-color);"></i> Set Delivery Location</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">Search your city/town or click on the map to set your pin.</p>
+            
+            <!-- Map Search Box with Suggestions -->
+            <div style="position: relative; margin-bottom: 1rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="map-search-input" placeholder="Search for cities, towns, or restaurants..." style="flex: 1; padding: 0.6rem 1rem; border-radius: var(--border-radius-sm); border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: var(--text-primary); outline: none;" oninput="handleMapSearchInput(this.value)" onkeypress="handleMapSearchKeyPress(event)">
+                    <button class="btn btn-primary" onclick="searchMapLocation()" style="padding: 0.6rem 1.2rem;"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div id="map-search-suggestions" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg-secondary); border: 1px solid var(--glass-border); border-radius: var(--border-radius-sm); box-shadow: 0 8px 24px rgba(0,0,0,0.6); z-index: 9999; max-height: 250px; overflow-y: auto; margin-top: 0.25rem;"></div>
+            </div>
+
+            <div id="map-container" style="height: 300px; border-radius: var(--border-radius-sm); margin-bottom: 1.5rem; border: 1px solid var(--glass-border); position: relative; z-index: 1;"></div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeMapModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmMapLocation()">Confirm Location</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/restaurants.js"></script>
+</body>
+</html>

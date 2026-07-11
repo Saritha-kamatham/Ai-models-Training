@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash | Restaurant Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .restaurant-banner {
+            display: flex;
+            align-items: center;
+            padding: 3rem 5%;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+        .restaurant-banner img {
+            width: 250px;
+            height: 160px;
+            border-radius: var(--border-radius-md);
+            object-fit: cover;
+            box-shadow: var(--box-shadow-glow);
+        }
+        .banner-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .banner-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+        .menu-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 2rem;
+            padding: 0 5% 4rem;
+        }
+        .category-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .category-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 1rem;
+            text-align: left;
+            cursor: pointer;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition-smooth);
+        }
+        .category-btn:hover,
+        .category-btn.active {
+            background: rgba(255, 75, 43, 0.1);
+            color: var(--primary-color);
+        }
+        @media (max-width: 768px) {
+            .restaurant-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .menu-layout {
+                grid-template-columns: 1fr;
+            }
+            .category-sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                position: static;
+                padding-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <!-- Banner -->
+    <div class="restaurant-banner glass-panel" id="restaurant-banner-container">
+        <!-- Rendered dynamically -->
+    </div>
+
+    <!-- Menu Section -->
+    <div class="menu-layout">
+        <!-- Sidebar Categories -->
+        <div class="category-sidebar" id="menu-categories-sidebar">
+            <button class="category-btn active" onclick="filterMenu('ALL')" id="cat-all">All Items</button>
+            <!-- Dynamic Category List -->
+        </div>
+        
+        <!-- Menu list -->
+        <div>
+            <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;" id="current-category-title">All Items</h3>
+            <div class="grid-container" id="menu-items-grid" style="padding: 0;">
+                <!-- Dynamic Food Menu Cards -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FoodDash Delivery. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/restaurant-details.js"></script>
+</body>
+</html>
