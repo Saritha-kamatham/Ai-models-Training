@@ -29,3 +29,11 @@ All AI-related files are located in the project root folder:
    python train.py
 <img width="476" height="208" alt="image" src="https://github.com/user-attachments/assets/e95c6fb0-109d-473b-b6f3-0a7e8cc09335" />
 
+### ⚠️ Note on TFLite Binary Files
+
+The `.tflite` files inside the `models/` directory are compiled binary files containing the mathematical weights and architecture of the trained neural networks. Because they are compiled, they cannot be opened or read as plain text in GitHub or code editors.
+
+If you want to view, review, or modify the source code, please refer to the following text files in this repository:
+* **To see the training and model architecture code**: Open [train.py](train.py) or the interactive Jupyter Notebook [ml_training.ipynb](ml_training.ipynb).
+* **To see how to load and run predictions**: Open [predict.py](predict.py) or the lightweight test scripts [test_ingredients.py](test_ingredients.py) and [test_demand.py](test_demand.py).
+
