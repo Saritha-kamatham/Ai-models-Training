@@ -24,3 +24,13 @@ All AI-related files are located in the project root folder:
 1. Install the required libraries in your terminal:
    ```bash
    pip install tensorflow numpy pandas
+2. Compile and serialize the models:
+   ```bash
+   python train.py
+3. Run the verification test scripts:
+   -> Test ingredient estimations:
+  ```bash
+   python test_ingredients.py
+
+
+  
