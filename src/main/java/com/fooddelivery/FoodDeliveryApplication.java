@@ -28,6 +28,8 @@ public class FoodDeliveryApplication {
             OrderRepository orderRepository,
             PaymentRepository paymentRepository,
             CartItemRepository cartItemRepository,
+            MealPlanRepository mealPlanRepository,
+            SubscriptionRepository subscriptionRepository,
             PasswordEncoder passwordEncoder) {
         return args -> {
             // 1. Seed Admin user
@@ -87,6 +89,8 @@ public class FoodDeliveryApplication {
                 orderRepository.deleteAll();
                 foodRepository.deleteAll();
                 restaurantRepository.deleteAll();
+                subscriptionRepository.deleteAll();
+                mealPlanRepository.deleteAll();
             }
 
             // 4. Seed Restaurants with Cities and Coordinates
@@ -544,6 +548,56 @@ public class FoodDeliveryApplication {
                         .build();
                 paymentRepository.save(payment);
                 System.out.println("Seeded sample order!");
+            }
+
+            // 7. Seed Meal Plans and Subscriptions
+            if (mealPlanRepository.count() == 0) {
+                MealPlan mp1 = MealPlan.builder()
+                        .name("Veg Meal Plan")
+                        .type("Veg Meal")
+                        .price(2999.0)
+                        .description("Healthy vegetarian meals for daily nutrition")
+                        .build();
+                MealPlan mp2 = MealPlan.builder()
+                        .name("Protein Meal Plan")
+                        .type("Protein Meal")
+                        .price(3999.0)
+                        .description("High protein meals optimized for fitness enthusiasts")
+                        .build();
+                MealPlan mp3 = MealPlan.builder()
+                        .name("Family Feast Plan")
+                        .type("Family Meal")
+                        .price(6999.0)
+                        .description("Substantial meal packages suitable for families")
+                        .build();
+
+                mp1 = mealPlanRepository.save(mp1);
+                mp2 = mealPlanRepository.save(mp2);
+                mp3 = mealPlanRepository.save(mp3);
+                System.out.println("Seeded Meal Plans successfully!");
+
+                if (subscriptionRepository.count() == 0) {
+                    User john = userRepository.findByEmail("customer@fooddelivery.com").orElse(null);
+                    if (john != null) {
+                        Subscription sub1 = Subscription.builder()
+                                .customer(john)
+                                .mealPlan(mp1)
+                                .durationDays(30)
+                                .startDate(LocalDateTime.now())
+                                .status("ACTIVE")
+                                .build();
+                        Subscription sub2 = Subscription.builder()
+                                .customer(john)
+                                .mealPlan(mp2)
+                                .durationDays(15)
+                                .startDate(LocalDateTime.now())
+                                .status("ACTIVE")
+                                .build();
+                        subscriptionRepository.save(sub1);
+                        subscriptionRepository.save(sub2);
+                        System.out.println("Seeded Active Subscriptions successfully!");
+                    }
+                }
             }
         };
     }

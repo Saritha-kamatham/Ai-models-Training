@@ -87,6 +87,27 @@ CREATE TABLE IF NOT EXISTS payments (
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
+-- 8. Create Meal Plans Table
+CREATE TABLE IF NOT EXISTS meal_plans (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    price DOUBLE NOT NULL,
+    description TEXT
+);
+
+-- 9. Create Subscriptions Table
+CREATE TABLE IF NOT EXISTS subscriptions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    meal_plan_id BIGINT NOT NULL,
+    duration_days INT NOT NULL,
+    start_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (meal_plan_id) REFERENCES meal_plans(id) ON DELETE CASCADE
+);
+
 -- ====================================================================
 -- SAMPLE INSERT STATEMENTS (PASSWORD IS BCRYPT FOR 'password123')
 -- ====================================================================
@@ -132,3 +153,16 @@ VALUES
 -- Taco Loco Items
 (9, 4, 'Baja Fish Tacos (3 Pcs)', 'Tacos', 'Crispy beer-battered fish fillets in corn tortillas with chipotle slaw', 11.49, TRUE, 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=300&q=80'),
 (10, 4, 'Loaded Nachos Grande', 'Appetizers', 'Tortilla chips covered in warm queso, black beans, pico, and sour cream', 10.99, FALSE, 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=300&q=80');
+
+-- Seeding Meal Plans
+INSERT INTO meal_plans (id, name, type, price, description)
+VALUES
+(1, 'Veg Meal Plan', 'Veg Meal', 2999.00, 'Healthy vegetarian meals for daily nutrition'),
+(2, 'Protein Meal Plan', 'Protein Meal', 3999.00, 'High protein meals optimized for fitness enthusiasts'),
+(3, 'Family Feast Plan', 'Family Meal', 6999.00, 'Substantial meal packages suitable for families');
+
+-- Seeding Subscriptions
+INSERT INTO subscriptions (id, customer_id, meal_plan_id, duration_days, status)
+VALUES
+(1, 5, 1, 30, 'ACTIVE'),
+(2, 5, 2, 15, 'ACTIVE');
