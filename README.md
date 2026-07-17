@@ -27,10 +27,5 @@ All AI-related files are located in the project root folder:
 2. Compile and serialize the models:
    ```bash
    python train.py
-3. Run the verification test scripts:
-   -> Test ingredient estimations:
-  ```bash
-   python test_ingredients.py
+<img width="476" height="208" alt="image" src="https://github.com/user-attachments/assets/e95c6fb0-109d-473b-b6f3-0a7e8cc09335" />
 
-
-  
